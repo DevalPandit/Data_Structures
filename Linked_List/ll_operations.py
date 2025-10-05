@@ -49,6 +49,23 @@ class LinkedList:
         self.tail.next = None
         self.length -= 1
         return print_pop_value.value
+    
+    
+    def prepend(self, value):
+        new_node = Node(value)
+        if self.length == 0:
+            self.head = new_node
+            self.tail = new_node
+            self.length += 1
+        else:
+            new_node.next = self.head
+            self.head = new_node
+            self.length += 1
+            
+        
+        
+    
+    
                 
 my_linked_list = LinkedList(5)
 my_linked_list.append(10)
@@ -63,4 +80,10 @@ pop_value = my_linked_list.pop()
 print("Popped element from end: ", pop_value)
 
 print("Print after popping: ")
+print(my_linked_list.print_list())
+
+print("Prepend 0 to the linked list")
+my_linked_list.prepend(0)
+
+print("Print after prepending: ")
 print(my_linked_list.print_list())
