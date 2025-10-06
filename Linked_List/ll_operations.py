@@ -144,6 +144,10 @@ class LinkedList:
             self.length += 1
             return True
         return None
+    
+    
+    def remove(self, index):
+        pass
         
 
 
