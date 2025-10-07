@@ -145,11 +145,37 @@ class LinkedList:
             return True
         return None
     
-    
+    # Logic: Use get method to get the node at the index and the previous index.
+    # If both are not None, set previous_index_node.next to index_node.next, set index_node.next to None.
+    # Decrement length by 1 and return the value of removed node.
+    # Time Complexity: O(n)
+    # Space Complexity: O(1)
     def remove(self, index):
-        pass
+        remove_node = self.get(index)
+        prev_node_to_remove = self.get(index-1)
+        if prev_node_to_remove is None or remove_node is None:
+            return None
+        prev_node_to_remove.next = remove_node.next
+        remove_node.next = None
+        self.length -= 1
+        return remove_node.value
         
-
+    # Logic: Swap head and tail
+    # Traverse the list and for each node, set its next to previous node
+    # Time Complexity: O(n)
+    # Space Complexity: O(1)
+    def reverse(self):
+        temp = self.head
+        self.head = self.tail
+        self.tail = temp
+        after = temp.next
+        before = None
+        for _ in range(self.length):
+            after = temp.next
+            temp.next = before
+            before = temp
+            temp = after
+        return True
 
 my_linked_list = LinkedList(5)
 my_linked_list.append(10)
@@ -198,4 +224,13 @@ insert_value_at_index_2 = my_linked_list.insert(2, 50)
 print("Insert value at index 2: ", insert_value_at_index_2)
 
 print("Print after inserting value at index 2: ")
+print(my_linked_list.print_list())
+
+print("Remove value at index 2: ", my_linked_list.remove(2))
+
+print("Print after removing value at index 2: ")
+print(my_linked_list.print_list())
+
+print("Reverse the linked list: ", my_linked_list.reverse())
+print("Print after reversing the linked list: ")
 print(my_linked_list.print_list())
