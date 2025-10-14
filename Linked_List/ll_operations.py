@@ -135,15 +135,18 @@ class LinkedList:
     # Time Complexity: O(n)
     # Space Complexity: O(1)
     def insert(self, index, value):
-        insert_node = Node(value)
-        insert_index_node = self.get(index)
-        prev_index_node = self.get(index-1)
-        if insert_index_node.value is not None and prev_index_node.value is not None:
-            insert_node.next = insert_index_node
-            prev_index_node.next = insert_node
-            self.length += 1
-            return True
-        return None
+        if index < 0 or index > self.length:
+            return False
+        if index == 0:
+            return self.prepend(value)
+        if index == self.length:
+            return self.append(value)
+        new_node = Node(value)
+        temp = self.get(index - 1)
+        new_node.next = temp.next
+        temp.next = new_node
+        self.length += 1   
+        return True  
     
     # Logic: Use get method to get the node at the index and the previous index.
     # If both are not None, set previous_index_node.next to index_node.next, set index_node.next to None.
@@ -151,6 +154,12 @@ class LinkedList:
     # Time Complexity: O(n)
     # Space Complexity: O(1)
     def remove(self, index):
+        if index == self.length - 1:
+            return self.pop()
+        if index == 0:
+            return self.pop_first()
+        if index < 0 or index >= self.length:
+            return None
         remove_node = self.get(index)
         prev_node_to_remove = self.get(index-1)
         if prev_node_to_remove is None or remove_node is None:
@@ -158,7 +167,7 @@ class LinkedList:
         prev_node_to_remove.next = remove_node.next
         remove_node.next = None
         self.length -= 1
-        return remove_node.value
+        return remove_node
         
     # Logic: Swap head and tail
     # Traverse the list and for each node, set its next to previous node
